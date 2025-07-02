@@ -1,6 +1,5 @@
-plugins {
-    id("java")
-}
+project.description =
+    "A library for handling Spring Security exceptions with customizable response formats, supporting both REST and GraphQL APIs."
 
 dependencies {
     compileOnly(platform("org.springframework.security:spring-security-bom:6.4.4"))

@@ -1,5 +1,6 @@
+project.description =  "Spring Boot starter for spring-security-exception-handler library."
+
 plugins {
-    id("java")
     id("java-library")
 }
 
