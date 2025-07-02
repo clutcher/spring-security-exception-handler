@@ -11,12 +11,26 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SpringSecurityExceptionFilter extends OncePerRequestFilter {
 
-    @Autowired
     private List<SpringSecurityExceptionHandler> handlers;
+
+    public SpringSecurityExceptionFilter(List<SpringSecurityExceptionHandler> handlers) {
+        this.handlers = new ArrayList<>(handlers);
+    }
+
+    public SpringSecurityExceptionFilter() {
+        this.handlers = new ArrayList<>();
+    }
+
+    @Autowired
+    public void setHandlers(List<SpringSecurityExceptionHandler> handlers) {
+        this.handlers = new ArrayList<>(handlers);
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -24,7 +38,6 @@ public class SpringSecurityExceptionFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (AuthenticationException | AccessDeniedException ex) {
-
             for (SpringSecurityExceptionHandler handler : handlers) {
                 if (handler.canHandle(request)) {
                     handler.handle(ex, response);
