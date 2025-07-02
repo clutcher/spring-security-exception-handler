@@ -1,23 +1,31 @@
+import org.jreleaser.gradle.plugin.JReleaserExtension
+import org.jreleaser.model.Http
+
 plugins {
     id("java")
     id("io.spring.dependency-management") version "1.1.7"
 
     id("maven-publish")
-//    id("signing")
-//    id("org.jreleaser") version "1.17.0"
+    id("signing")
+    id("org.jreleaser") version "1.17.0"
 }
 
-extra["springBootVersion"] = "3.4.4"
+extra["springBootVersion"] = "3.5.3"
 
 allprojects {
     group = "dev.clutcher.spring-security"
     version = "1.0.0"
 }
 
+configureJReleaser()
+
 subprojects {
     apply(plugin = "java")
     apply(plugin = "io.spring.dependency-management")
+
     apply(plugin = "maven-publish")
+    apply(plugin = "signing")
+
     java {
         toolchain {
             languageVersion = JavaLanguageVersion.of(17)
@@ -42,15 +50,15 @@ subprojects {
     }
 
     configurePublishing()
-//
-//    signing {
-//        useGpgCmd()
-//        sign(publishing.publications["default"])
-//    }
-//
-//    tasks.test {
-//        useJUnitPlatform()
-//    }
+
+    signing {
+        useGpgCmd()
+        sign(publishing.publications["default"])
+    }
+
+    tasks.test {
+        useJUnitPlatform()
+    }
 }
 
 fun Project.configurePublishing() {
@@ -100,55 +108,55 @@ fun Project.configurePublishing() {
 
     }
 }
-//
-//fun Project.configureJReleaser() {
-//    configure<JReleaserExtension> {
-//
-//        release {
-//            github {
-//                repoOwner = "clutcher"
-//            }
-//        }
-//
-//        deploy {
-//            maven {
-//                mavenCentral {
-//                    create("sonatype") {
-//                        setActive("ALWAYS")
-//                        sign.set(false)
-//
-//                        url.set("https://central.sonatype.com/api/v1/publisher")
-//                        authorization.set(Http.Authorization.BEARER)
-//
-//                        username.set(System.getenv("MAVENCENTRAL_USERNAME"))
-//                        password.set(System.getenv("MAVENCENTRAL_PASSWORD"))
-//
-//                        stagingRepository("build/staging-deploy")
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    tasks.named("publish") {
-//        // Add dependencies on each subproject's publish task
-//        subprojects.forEach { subproject ->
-//            dependsOn(subproject.tasks.named("publish"))
-//        }
-//    }
-//
-//    tasks.named("publishToMavenLocal") {
-//        // Add dependencies on each subproject's publish task
-//        subprojects.forEach { subproject ->
-//            dependsOn(subproject.tasks.named("publishToMavenLocal"))
-//        }
-//    }
-//
-//    tasks.named("jreleaserFullRelease").configure {
-//        dependsOn("publish")
-//    }
-//
-//    tasks.named("jreleaserDeploy").configure {
-//        dependsOn("publish")
-//    }
-//}
+
+fun Project.configureJReleaser() {
+    configure<JReleaserExtension> {
+
+        release {
+            github {
+                repoOwner = "clutcher"
+            }
+        }
+
+        deploy {
+            maven {
+                mavenCentral {
+                    create("sonatype") {
+                        setActive("ALWAYS")
+                        sign.set(false)
+
+                        url.set("https://central.sonatype.com/api/v1/publisher")
+                        authorization.set(Http.Authorization.BEARER)
+
+                        username.set(System.getenv("MAVENCENTRAL_USERNAME"))
+                        password.set(System.getenv("MAVENCENTRAL_PASSWORD"))
+
+                        stagingRepository("build/staging-deploy")
+                    }
+                }
+            }
+        }
+    }
+
+    tasks.named("publish") {
+        // Add dependencies on each subproject's publish task
+        subprojects.forEach { subproject ->
+            dependsOn(subproject.tasks.named("publish"))
+        }
+    }
+
+    tasks.named("publishToMavenLocal") {
+        // Add dependencies on each subproject's publish task
+        subprojects.forEach { subproject ->
+            dependsOn(subproject.tasks.named("publishToMavenLocal"))
+        }
+    }
+
+    tasks.named("jreleaserFullRelease").configure {
+        dependsOn("publish")
+    }
+
+    tasks.named("jreleaserDeploy").configure {
+        dependsOn("publish")
+    }
+}

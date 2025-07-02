@@ -9,5 +9,4 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-autoconfigure")
 
     implementation("jakarta.servlet:jakarta.servlet-api")
-    implementation("com.fasterxml.jackson.core:jackson-databind")
 }

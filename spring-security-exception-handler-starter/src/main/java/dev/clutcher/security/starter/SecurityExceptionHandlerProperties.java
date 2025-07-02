@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@ConfigurationProperties(prefix = "security.exception-handlers")
+@ConfigurationProperties(prefix = "dev.clutcher.security")
 public class SecurityExceptionHandlerProperties {
 
     private Map<String, HandlerConfig> handlers = createDefaultHandlers();
@@ -30,14 +30,14 @@ public class SecurityExceptionHandlerProperties {
         HandlerConfig defaultHandler = new HandlerConfig();
         defaultHandler.setEnabled(true);
         defaultHandler.setUrls(List.of("/**"));
-        defaultHandler.setPriority(100);
+        defaultHandler.setOrder(100);
         defaults.put("default", defaultHandler);
         
         //GraphQL handler
         HandlerConfig graphqlHandler = new HandlerConfig();
         graphqlHandler.setEnabled(true);
         graphqlHandler.setUrls(List.of("/graphql"));
-        graphqlHandler.setPriority(0);
+        graphqlHandler.setOrder(0);
         defaults.put("graphql", graphqlHandler);
         
         return defaults;
@@ -46,7 +46,7 @@ public class SecurityExceptionHandlerProperties {
     public static class HandlerConfig {
         private boolean enabled = false;
         private List<String> urls = List.of();
-        private int priority = 100;
+        private int order = 100;
 
         public boolean isEnabled() {
             return enabled;
@@ -64,12 +64,12 @@ public class SecurityExceptionHandlerProperties {
             this.urls = urls;
         }
 
-        public int getPriority() {
-            return priority;
+        public int getOrder() {
+            return order;
         }
 
-        public void setPriority(int priority) {
-            this.priority = priority;
+        public void setOrder(int order) {
+            this.order = order;
         }
     }
 }

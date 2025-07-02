@@ -1,10 +1,11 @@
 package dev.clutcher.security.filter;
 
-import dev.clutcher.security.handler.SecurityExceptionHandler;
+import dev.clutcher.security.handler.SpringSecurityExceptionHandler;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -12,13 +13,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
 
-public class SecurityExceptionFilter extends OncePerRequestFilter {
+public class SpringSecurityExceptionFilter extends OncePerRequestFilter {
 
-    private final List<SecurityExceptionHandler> handlers;
-
-    public SecurityExceptionFilter(List<SecurityExceptionHandler> handlers) {
-        this.handlers = handlers;
-    }
+    @Autowired
+    private List<SpringSecurityExceptionHandler> handlers;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -26,10 +24,10 @@ public class SecurityExceptionFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (AuthenticationException | AccessDeniedException ex) {
-            
-            for (SecurityExceptionHandler handler : handlers) {
+
+            for (SpringSecurityExceptionHandler handler : handlers) {
                 if (handler.canHandle(request)) {
-                    handler.handle(request, response, ex);
+                    handler.handle(ex, response);
                     return;
                 }
             }
