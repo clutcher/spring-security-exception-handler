@@ -72,12 +72,12 @@ fun Project.configurePublishing() {
                     name.set(project.name)
                     description.set(provider { project.description })
 
-                    url.set("https://github.com/clutcher/spring-modulith-module-archunit")
+                    url.set("https://github.com/clutcher/spring-security-exception-handler")
 
                     licenses {
                         license {
                             name.set("MIT License")
-                            url.set("https://github.com/clutcher/spring-modulith-module-archunit/blob/main/LICENSE")
+                            url.set("https://github.com/clutcher/spring-security-exception-handler/blob/main/LICENSE")
                             distribution.set("repo")
                         }
                     }
@@ -91,9 +91,9 @@ fun Project.configurePublishing() {
                     }
 
                     scm {
-                        connection.set("scm:git:git://github.com/clutcher/spring-modulith-module-archunit.git")
-                        developerConnection.set("scm:git:ssh://github.com/clutcher/spring-modulith-module-archunit.git")
-                        url.set("https://github.com/clutcher/spring-modulith-module-archunit")
+                        connection.set("scm:git:git://github.com/clutcher/spring-security-exception-handler.git")
+                        developerConnection.set("scm:git:ssh://github.com/clutcher/spring-security-exception-handler.git")
+                        url.set("https://github.com/clutcher/spring-security-exception-handler")
                     }
                 }
             }
