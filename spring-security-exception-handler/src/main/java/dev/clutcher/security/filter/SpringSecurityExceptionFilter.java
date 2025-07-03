@@ -20,15 +20,19 @@ public class SpringSecurityExceptionFilter extends OncePerRequestFilter {
     private List<SpringSecurityExceptionHandler> handlers;
 
     public SpringSecurityExceptionFilter(List<SpringSecurityExceptionHandler> handlers) {
+        // Used to manually create Spring Bean in Configuration
         this.handlers = new ArrayList<>(handlers);
     }
 
     public SpringSecurityExceptionFilter() {
+        // ! Default constructor is used by [[SecurityConfigurer]] to create new instances
         this.handlers = new ArrayList<>();
     }
 
-    @Autowired
+    @Autowired(required = false)
     public void setHandlers(List<SpringSecurityExceptionHandler> handlers) {
+        // ! @Autowired setter is used by [[SecurityConfigurerAdapter#postProcess]] to inject beans after creating
+        // ! instance with the default constructor.
         this.handlers = new ArrayList<>(handlers);
     }
 
