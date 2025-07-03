@@ -12,7 +12,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class SpringSecurityExceptionFilter extends OncePerRequestFilter {
@@ -27,7 +26,7 @@ public class SpringSecurityExceptionFilter extends OncePerRequestFilter {
         this.handlers = new ArrayList<>();
     }
 
-    @Autowired
+    @Autowired(required = false)
     public void setHandlers(List<SpringSecurityExceptionHandler> handlers) {
         this.handlers = new ArrayList<>(handlers);
     }
