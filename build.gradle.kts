@@ -7,7 +7,7 @@ plugins {
 
     id("maven-publish")
     id("signing")
-    id("org.jreleaser") version "1.17.0"
+    id("org.jreleaser") version "1.19.0"
 }
 
 extra["springBootVersion"] = "3.5.3"
@@ -115,6 +115,7 @@ fun Project.configureJReleaser() {
         release {
             github {
                 repoOwner = "clutcher"
+                token = System.getenv("GITHUB_TOKEN")
             }
         }
 
