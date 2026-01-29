@@ -7,7 +7,7 @@ plugins {
 dependencies {
     api(project(":spring-security-exception-handler"))
     implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-autoconfigure")
+    implementation("org.springframework.boot:spring-boot-security")
 
     implementation("jakarta.servlet:jakarta.servlet-api")
 }
