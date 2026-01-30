@@ -2,7 +2,7 @@ project.description =
     "A library for handling Spring Security exceptions with customizable response formats, supporting both REST and GraphQL APIs."
 
 dependencies {
-    compileOnly(platform("org.springframework.security:spring-security-bom:6.4.4"))
+    compileOnly(platform("org.springframework.security:spring-security-bom:7.0.2"))
 
     compileOnly("org.springframework.security:spring-security-core")
     compileOnly("org.springframework.security:spring-security-web")
