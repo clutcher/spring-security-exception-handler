@@ -51,7 +51,7 @@ Add the starter dependency to your Spring Boot project:
 
 #### Gradle
 ```kotlin
-implementation("dev.clutcher.spring-security:spring-security-exception-handler-starter:1.0.0")
+implementation("dev.clutcher.spring-security:spring-security-exception-handler-starter:2.0.0")
 ```
 
 #### Maven
@@ -59,7 +59,7 @@ implementation("dev.clutcher.spring-security:spring-security-exception-handler-s
 <dependency>
     <groupId>dev.clutcher.spring-security</groupId>
     <artifactId>spring-security-exception-handler-starter</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
